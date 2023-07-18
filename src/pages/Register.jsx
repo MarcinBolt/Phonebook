@@ -61,7 +61,7 @@ const SignUp = () => {
                 <HowToRegIcon />
               </Avatar>
               <Typography component="h3" variant="h5">
-                Sign Up
+                Register
               </Typography>
               <Box component="form" validate="true" onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
@@ -110,7 +110,7 @@ const SignUp = () => {
                 </Button>
                 <Grid container justifyContent="flex-end">
                   <Grid item>
-                    <Link href="/goit-react-hw-08-phonebook/login" variant="body2">
+                    <Link href="#/login" variant="body2">
                       Already have an account? Sign in
                     </Link>
                   </Grid>

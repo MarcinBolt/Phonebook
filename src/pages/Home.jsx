@@ -91,8 +91,8 @@ const Home = () => {
               </Button>
               <Grid container>
                 <Grid item>
-                  <Link href="/goit-react-hw-08-phonebook/register" variant="body2">
-                    {"Don't have an account? Register"}
+                  <Link href="#/register" variant="body2">
+                    Don't have an account? Register
                   </Link>
                 </Grid>
               </Grid>
