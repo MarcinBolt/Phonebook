@@ -9,10 +9,10 @@ import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 import { SearchAppBar } from './components/SearchAppBar/SearchAppBar';
 import { EditContactModal } from './components/EditContactModal/EditContactModal';
-import Home from './pages/Home';
 
-const Contacts = lazy(() => import('./pages/Contacts'));
+const Home = lazy(() => import('./pages/Home'));
 const Register = lazy(() => import('./pages/Register'));
+const Contacts = lazy(() => import('./pages/Contacts'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const App = () => {
