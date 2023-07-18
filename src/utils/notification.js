@@ -17,8 +17,8 @@ const notifyContactExist = name => {
 
 const notifyRegistrationFailure = () => {
   Notiflix.Report.failure(
-    'Registration Fail!. Sorry, User registration failure. Please try again or contact our service.',
-    'Username, e-mail and password must have at least 7 characters!',
+    'Registration Fail!ed.',
+    'This User already exist or too short Username / e-mail / password (each must have at least 7 characters).',
     'Try again'
   );
 };
