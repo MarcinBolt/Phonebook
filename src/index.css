@@ -1,0 +1,53 @@
+:root {
+  color: #0052af;
+}
+
+body {
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5em;
+  line-height: 1.1;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(
+    90deg,
+    #03bef7,
+    #0389f7,
+    #0175c2,
+    #0050ac,
+    #0050ac,
+    #0175c2,
+    #0389f7,
+    #03bef7
+  );
+  background-size: 500% 500%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 7s ease-in-out infinite;
+}
+@keyframes shine {
+  0% {
+    background-position: 0% 100%;
+  }
+  50% {
+    background-position: 100% 0%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}
+
+h1,
+h2,
+h3,
+h3,
+h4,
+h5 {
+  margin: 0;
+  padding: 0;
+  color: #0052af;
+}

@@ -1,0 +1,10 @@
+.item {
+  font-size: 18px;
+  font-weight: 500;
+  color: #0052af;
+  display: flex;
+  justify-content: space-between;
+  width: auto;
+  max-width: 80vw;
+  margin-block: 3px;
+}
