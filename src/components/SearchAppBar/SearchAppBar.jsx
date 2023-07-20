@@ -85,7 +85,7 @@ export const SearchAppBar = () => {
               variant="contained"
               type="button"
               id="mobile"
-              endIcon={<ExitToAppIcon />}
+              endIcon={<ExitToAppIcon viewBox="3 3 18 18" />}
               onClick={() => dispatch(logOut())}
             ></Button>
           </Toolbar>
