@@ -1,5 +1,7 @@
 # goit-react-hw-08-phonebook
-https://marcinbolt.github.io/goit-react-hw-08-phonebook/
+Link: https://marcinbolt.github.io/goit-react-hw-08-phonebook/
+
+Swagger UI: https://connections-api.herokuapp.com/docs/#/User
 
 #users-authorization #users-authentication #token #React #React-Redux #vite #axios #gh-pages
 
