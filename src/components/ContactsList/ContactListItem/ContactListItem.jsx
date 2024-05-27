@@ -1,4 +1,4 @@
-import { Avatar, Chip } from '@mui/material';
+import { Avatar, Chip, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux';
 import css from './ContactListItem.module.css';
@@ -28,11 +28,12 @@ export const ContactsListItem = ({ contact, id, name, number, onContactRemove })
       avatar={<Avatar {...stringAvatar(`${name}`)} />}
       key={id}
       className={css.item}
-      label={`${name}: ${number}`}
+      label={<Typography className={css.text}>{`${name}: ${number}`}</Typography>}
       variant="outlined"
       onClick={() => handleEditContact(contact)}
       onDelete={() => onContactRemove(id)}
       deleteIcon={<DeleteIcon />}
+      onFocus={() => dispatch(setOpenedContactAction(contact))}
     />
   );
 };

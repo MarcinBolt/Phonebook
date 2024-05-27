@@ -1,11 +1,11 @@
 .contactsList {
-  padding: 0;
+  padding: 36px 0;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  gap: 5px;
-  max-width: 100%;
+  gap: 10px;
+  width: auto;
 }
 
 .empty {

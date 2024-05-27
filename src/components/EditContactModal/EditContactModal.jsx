@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, IconButton } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,8 +13,10 @@ import {
 } from '../../redux/modal/modalSlice';
 import { editContact } from '../../redux/contacts/operations';
 import css from './EditContactModal.module.css';
+import closeIcon from '../../assets/icons/close.svg';
 
 const style = {
+  position: 'absolute',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -22,9 +24,9 @@ const style = {
   gap: '20px',
   bgcolor: 'background.paper',
   border: '1px solid #555555',
-  borderRadius: '20px',
+  borderRadius: '6px',
   boxShadow: 24,
-  p: 4,
+  p: 5,
 };
 
 //DOM element added in index.html ( <div id="modal-contact"></div> )
@@ -66,8 +68,24 @@ export const EditContactModal = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style} component="form" onSubmit={handleEditedSubmit} autoComplete="off">
+          <IconButton
+            style={{
+              position: 'absolute',
+              top: '15px',
+              right: '15px',
+              display: 'flex',
+              width: '16px',
+              height: '16px',
+              border: '0',
+              padding: '10px',
+              transform: 'rotate(90deg)',
+            }}
+            onClick={handleClose}
+          >
+            <img src={closeIcon} alt="Close" viewBox="0 0 18 18" />
+          </IconButton>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Edit Contact:
+            Edit Contact
           </Typography>
           <TextField
             id="outlined-basic"
@@ -92,6 +110,15 @@ export const EditContactModal = () => {
           <Button variant="contained" type="submit" className={css.button}>
             <SaveIcon className={css.icon} />
             Save
+          </Button>
+          <Button
+            color="primary"
+            variant="outlined"
+            type="button"
+            className={css.button}
+            onClick={handleClose}
+          >
+            Cancel
           </Button>
         </Box>
       </Modal>

@@ -4,7 +4,53 @@
   color: #0052af;
   display: flex;
   justify-content: space-between;
-  width: auto;
-  max-width: 80vw;
-  margin-block: 3px;
+  width: 100%;
+  padding-inline: 3px;
+}
+
+.text {
+  width: 100%;
+  margin-inline: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text:hover,
+.item:focus .text {
+  width: max-content;
+  text-overflow: clip;
+  transition: transform 0.5s ease;
+  animation: move 6s linear infinite;
+}
+
+@keyframes move {
+  0% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .text:hover,
+  .item:focus .text {
+    animation: moveDesktop 3s linear infinite;
+  }
+
+  @keyframes moveDesktop {
+    0% {
+      transform: translateX(0%);
+    }
+    50% {
+      transform: translateX(-10%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
 }

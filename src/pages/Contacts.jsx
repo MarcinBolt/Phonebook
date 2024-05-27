@@ -21,13 +21,15 @@ const Contacts = () => {
 
       <Container
         sx={{
-          display: { xs: 'grid', sm: 'flex' },
+          display: { sm: 'grid', md: 'flex' },
           justifyContent: 'center',
           alignItems: 'flex-start',
           margin: '30px auto',
-          padding: '0 auto',
+          padding: '0 10px',
           minHeight: '50vh',
           gridGap: '25px',
+          gap: '30px',
+          width: { sm: '90%', md: '100%' },
         }}
       >
         <AddContactForm />

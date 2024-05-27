@@ -108,7 +108,7 @@ const SignUp = () => {
                 <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                   Register
                 </Button>
-                <Grid container justifyContent="flex-end">
+                <Grid container>
                   <Grid item>
                     <Link href="#/login" variant="body2">
                       Already have an account? Sign in
