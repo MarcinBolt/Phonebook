@@ -1,0 +1,1 @@
+import{X as n,f as s,j as t,C as a}from"./index-a5422ce8.js";const o=()=>{const e=n();return s.useEffect(()=>{e("/")}),t.jsx(a,{sx:{display:"flex",justifyContent:"center",alignItems:"center",width:"100vw",height:"100vh",backgroundColor:"transparent"},children:t.jsx("h2",{children:"404 Page Not Found"})})};export{o as default};
