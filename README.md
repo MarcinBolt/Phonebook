@@ -2,8 +2,10 @@
 
 >A single-page application with a Heroku backend, enabling user sign-up, login, and logout. It provides contact management capabilities such as adding, editing, and removing contacts with a filtering feature. The app is structured on Vite & React.js, incorporates Notiflix notifications, Material-UI for a user-friendly interface, and employs Axios for backend data access. It utilizes router-dom (from react) for client-side authorization and authentication.
 
+## Clone this repository and install all dependencies using ```npm install```
+## You can run this app using script ```npm run dev```
 
-## Installed packages:
+## Also could install every package separately:
 
 1. Redux Toolkit:
 
@@ -47,7 +49,7 @@
 
 10. Notiflix - notification:
 
-    ```npm i notiflix```
+    ```npm install notiflix```
 
 
 # 
