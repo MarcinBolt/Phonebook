@@ -1,4 +1,4 @@
-# Phonebook App with Material UI [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-gray)](https://marcinbolt.github.io/Phonebook/) [![Swagger](https://img.shields.io/badge/API%20Documentation-Swagger-green)](https://connections-api.herokuapp.com/docs/#/User)
+# Phonebook App created with Material UI [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-gray)](https://marcinbolt.github.io/Phonebook/) [![Swagger](https://img.shields.io/badge/API%20Documentation-Swagger-green)](https://connections-api.herokuapp.com/docs/#/User)
 
 >A single-page application with a Heroku backend, enabling user sign-up, login, and logout. It provides contact management capabilities such as adding, editing, and removing contacts with a filtering feature. The app is structured on Vite & React.js, incorporates Notiflix notifications, Material-UI for a user-friendly interface, and employs Axios for backend data access. It utilizes router-dom (from react) for client-side authorization and authentication.
 
