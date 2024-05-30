@@ -9,28 +9,45 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logIn } from '../redux/auth/operations';
 import { Copyright } from '../components/Copyright/Copyright';
+import { useState } from 'react';
+import { useCallback } from 'react';
 
 const theme = createTheme();
 
 const Home = () => {
   const dispatch = useDispatch();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [canSubmit, setCanSubmit] = useState(false);
 
-  const handleSubmit = event => {
+  const validateEmail = useCallback(value => {
+    const isValid = value && value.match(/.+@.+\..+/);
+    setEmailError(isValid ? '' : 'Email is required and must be a valid email address');
+    setCanSubmit(isValid && password);
+  }, [password]);
+
+  const validatePassword = useCallback(value => {
+    setPasswordError(value ? '' : 'Password is required');
+    setCanSubmit(value && email);
+  }, [email]);
+
+  const handleSubmit = useCallback(event => {
     event.preventDefault();
-    const form = event.currentTarget;
-    const data = new FormData(event.currentTarget);
-    dispatch(
-      logIn({
-        email: data.get('email'),
-        password: data.get('password'),
-      })
-    );
-
-    form.reset();
-  };
+    if (canSubmit) {
+      dispatch(
+        logIn({
+          email,
+          password,
+        })
+      );
+      event.currentTarget.reset();
+    }
+  }, [dispatch, email, password, canSubmit]);
 
   return (
     <Container
@@ -61,32 +78,57 @@ const Home = () => {
             <Typography component="h3" variant="h5">
               Sign In
             </Typography>
-            <Box component="form" validate="true" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box
+              component="form"
+              validate="true"
+              onSubmit={handleSubmit}
+              sx={{
+                mt: 1,
+              }}
+            >
               <TextField
                 margin="normal"
                 required
                 fullWidth
+                error={!!emailError}
+                helperText={emailError}
                 id="email"
                 label="Email Address"
                 title="Username must have at least 7 characters"
-                pattern=".{7,}"
+                pattern=".+@.+\\..+"
                 name="email"
                 autoComplete="email"
                 autoFocus
+                value={email}
+                onChange={event => {
+                  setEmail(event.target.value);
+                  validateEmail(event.target.value);
+                }}
               />
               <TextField
                 margin="normal"
                 required
                 fullWidth
+                error={!!passwordError}
+                helperText={passwordError}
                 name="password"
                 label="Password"
-                title="Password must be at least 7 characters"
-                pattern=".{7,}"
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={event => {
+                  setPassword(event.target.value);
+                  validatePassword(event.target.value);
+                }}
               />
-              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                disabled={!canSubmit}
+              >
                 Sign In
               </Button>
               <Grid container>
@@ -105,3 +147,4 @@ const Home = () => {
   );
 };
 export default Home;
+

@@ -5,7 +5,6 @@ export const Loader = () => {
   return (
     <Container
       sx={{
-        position: 'absolute',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
