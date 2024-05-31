@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -17,21 +18,98 @@ const theme = createTheme();
 
 const SignUp = () => {
   const dispatch = useDispatch();
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [canSubmit, setCanSubmit] = useState(false);
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const data = new FormData(event.currentTarget);
-    dispatch(
-      register({
-        name: data.get('userName'),
-        email: data.get('email'),
-        password: data.get('password'),
-      })
+  const validateEmail = useCallback(value => {
+    const trimmedValue = value.trim();
+    const isValid = trimmedValue && /^[A-Z0-9._%+-]+@[A-Z0-9]{1,}\.[A-Z]{2,8}$/i.test(trimmedValue);
+    setEmailError(
+      isValid
+        ? ''
+        : 'Email must be at least one letters between @ sign and dot, and at least two letters after dot',
     );
+  }, []);
 
-    form.reset();
-  };
+  const validateForm = useCallback(() => {
+    const canSubmit = username !== '' && !emailError && !passwordError && password.length >= 7;
+    setCanSubmit(canSubmit);
+  }, [username, emailError, passwordError, password]);
+
+  const validateUsername = useCallback(
+    value => {
+      const trimmedValue = value.trim();
+      setUsername(trimmedValue);
+      validateForm();
+    },
+    [validateForm],
+  );
+
+  const validatePassword = useCallback(
+    value => {
+      const trimmedValue = value.trim();
+      setPassword(trimmedValue);
+      if (trimmedValue.length < 7) {
+        setPasswordError('Password must be at least 7 characters');
+      } else {
+        setPasswordError('');
+      }
+      validateForm();
+    },
+    [validateForm],
+  );
+
+  const handleEmailChange = useCallback(
+    ev => {
+      const trimmedValue = ev.target.value.trim();
+      setEmail(trimmedValue);
+      validateEmail(trimmedValue);
+      validateForm();
+    },
+    [validateEmail, validateForm],
+  );
+
+  const handleUsernameChange = useCallback(
+    ev => {
+      const trimmedValue = ev.target.value.trim();
+      validateUsername(trimmedValue);
+    },
+    [validateUsername],
+  );
+
+  const handlePasswordChange = useCallback(
+    ev => {
+      const trimmedValue = ev.target.value.trim();
+      validatePassword(trimmedValue);
+    },
+    [validatePassword],
+  );
+
+  const handleSubmit = useCallback(
+    ev => {
+      ev.preventDefault();
+      if (canSubmit) {
+        dispatch(
+          register({
+            name: username,
+            email,
+            password,
+          }),
+        );
+
+        ev.currentTarget.reset();
+      }
+    },
+    [dispatch, username, email, password, canSubmit],
+  );
+
+  useEffect(() => {
+    validateForm();
+  }, [validateForm]);
 
   return (
     <>
@@ -69,14 +147,16 @@ const SignUp = () => {
                     <TextField
                       sx={{ color: 'primary.main' }}
                       autoComplete="given-name"
-                      name="userName"
+                      name="username"
                       required
                       fullWidth
-                      id="userName"
-                      label="Name"
-                      title="Username must have at least 7 characters"
-                      pattern=".{7,}"
+                      id="username"
+                      label="Username"
                       autoFocus
+                      value={username}
+                      onChange={handleUsernameChange}
+                      error={!username}
+                      helperText={username ? '' : 'Username is required'}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -84,11 +164,13 @@ const SignUp = () => {
                       required
                       fullWidth
                       id="email"
-                      label="Email Address"
-                      title="E-mail address must be at least 7 characters"
-                      pattern=".{7,}"
+                      label="E-mail Address"
                       name="email"
                       autoComplete="email"
+                      value={email}
+                      onChange={handleEmailChange}
+                      error={!!emailError}
+                      helperText={emailError}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -97,15 +179,23 @@ const SignUp = () => {
                       fullWidth
                       name="password"
                       label="Password"
-                      title="Password must be at least 7 characters"
-                      pattern=".{7,}"
                       type="password"
                       id="password"
                       autoComplete="off"
+                      value={password}
+                      onChange={handlePasswordChange}
+                      error={!!passwordError}
+                      helperText={passwordError}
                     />
                   </Grid>
                 </Grid>
-                <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                  disabled={!canSubmit}
+                >
                   Register
                 </Button>
                 <Grid container>

@@ -9,11 +9,10 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logIn } from '../redux/auth/operations';
 import { Copyright } from '../components/Copyright/Copyright';
-import { useState } from 'react';
-import { useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 const theme = createTheme();
 
@@ -25,29 +24,38 @@ const Home = () => {
   const [passwordError, setPasswordError] = useState('');
   const [canSubmit, setCanSubmit] = useState(false);
 
-  const validateEmail = useCallback(value => {
-    const isValid = value && value.match(/.+@.+\..+/);
-    setEmailError(isValid ? '' : 'Email is required and must be a valid email address');
-    setCanSubmit(isValid && password);
-  }, [password]);
+  const validateEmail = useCallback(
+    value => {
+      const isValid = value && /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,8}$/i.test(value);
+      setEmailError(isValid ? '' : 'Email is required and must be a valid email address');
+      setCanSubmit(isValid && password);
+    },
+    [password]
+  );
 
-  const validatePassword = useCallback(value => {
-    setPasswordError(value ? '' : 'Password is required');
-    setCanSubmit(value && email);
-  }, [email]);
+  const validatePassword = useCallback(
+    value => {
+      setPasswordError(value ? '' : 'Password is required');
+      setCanSubmit(value && email);
+    },
+    [email]
+  );
 
-  const handleSubmit = useCallback(event => {
-    event.preventDefault();
-    if (canSubmit) {
-      dispatch(
-        logIn({
-          email,
-          password,
-        })
-      );
-      event.currentTarget.reset();
-    }
-  }, [dispatch, email, password, canSubmit]);
+  const handleSubmit = useCallback(
+    ev => {
+      ev.preventDefault();
+      if (canSubmit) {
+        dispatch(
+          logIn({
+            email,
+            password,
+          })
+        );
+        ev.currentTarget.reset();
+      }
+    },
+    [dispatch, email, password, canSubmit]
+  );
 
   return (
     <Container
@@ -93,16 +101,15 @@ const Home = () => {
                 error={!!emailError}
                 helperText={emailError}
                 id="email"
-                label="Email Address"
-                title="Username must have at least 7 characters"
-                pattern=".+@.+\\..+"
+                label="E-mail Address"
+                type="email"
                 name="email"
                 autoComplete="email"
                 autoFocus
                 value={email}
-                onChange={event => {
-                  setEmail(event.target.value);
-                  validateEmail(event.target.value);
+                onChange={ev => {
+                  setEmail(ev.target.value);
+                  validateEmail(ev.target.value);
                 }}
               />
               <TextField
@@ -134,7 +141,7 @@ const Home = () => {
               <Grid container>
                 <Grid item>
                   <Link href="#/register" variant="body2">
-                    Don't have an account? Register
+                    Do not have an account yet? Register
                   </Link>
                 </Grid>
               </Grid>
@@ -147,4 +154,3 @@ const Home = () => {
   );
 };
 export default Home;
-
