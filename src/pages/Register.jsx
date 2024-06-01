@@ -27,7 +27,7 @@ const SignUp = () => {
 
   const validateEmail = useCallback(value => {
     const trimmedValue = value.trim();
-    const isValid = trimmedValue && /^[A-Z0-9._%+-]+@[A-Z0-9]{1,}\.[A-Z]{2,8}$/i.test(trimmedValue);
+    const isValid = trimmedValue && /^[A-Z0-9._%+-]+@[A-Z0-9]{1,}\.[A-Z]{2,}$/i.test(trimmedValue);
     setEmailError(
       isValid
         ? ''

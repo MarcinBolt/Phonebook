@@ -27,11 +27,11 @@ const Home = () => {
   const validateEmail = useCallback(
     value => {
       const trimmedValue = value.trim();
-    const isValid = trimmedValue && /^[A-Z0-9._%+-]+@[A-Z0-9]{1,}\.[A-Z]{2,8}$/i.test(trimmedValue);
+    const isValid = trimmedValue && /^[A-Z0-9._%+-]+@[A-Z0-9]{1,}\.[A-Z]{2,}$/i.test(trimmedValue);
     setEmailError(
       isValid
         ? ''
-        : 'Email must be at least one letters between @ sign and dot, and at least two letters after dot',
+        : 'Please provide a valid email address'
     );
       setCanSubmit(isValid && password);
     },
