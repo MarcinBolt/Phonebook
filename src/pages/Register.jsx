@@ -13,6 +13,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch } from 'react-redux';
 import { register } from '../redux/auth/operations';
 import { Copyright } from '../components/Copyright/Copyright';
+import PasswordStrengthIndicator from 'react-password-strength-bar';
 
 const theme = createTheme();
 
@@ -21,8 +22,8 @@ const SignUp = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
   const [canSubmit, setCanSubmit] = useState(false);
 
   const validateEmail = useCallback(value => {
@@ -36,28 +37,15 @@ const SignUp = () => {
   }, []);
 
   const validateForm = useCallback(() => {
-    const canSubmit = username !== '' && !emailError && !passwordError && password.length >= 7;
+    const canSubmit =
+      username !== '' && !emailError && password.length >= 7 && password === confirmPassword;
     setCanSubmit(canSubmit);
-  }, [username, emailError, passwordError, password]);
+  }, [username, emailError, password, confirmPassword]);
 
   const validateUsername = useCallback(
     value => {
       const trimmedValue = value.trim();
       setUsername(trimmedValue);
-      validateForm();
-    },
-    [validateForm],
-  );
-
-  const validatePassword = useCallback(
-    value => {
-      const trimmedValue = value.trim();
-      setPassword(trimmedValue);
-      if (trimmedValue.length < 7) {
-        setPasswordError('Password must be at least 7 characters');
-      } else {
-        setPasswordError('');
-      }
       validateForm();
     },
     [validateForm],
@@ -84,9 +72,19 @@ const SignUp = () => {
   const handlePasswordChange = useCallback(
     ev => {
       const trimmedValue = ev.target.value.trim();
-      validatePassword(trimmedValue);
+      setPassword(trimmedValue);
+      validateForm();
     },
-    [validatePassword],
+    [validateForm],
+  );
+
+  const handleConfirmPasswordChange = useCallback(
+    ev => {
+      const trimmedValue = ev.target.value.trim();
+      setConfirmPassword(trimmedValue);
+      validateForm();
+    },
+    [validateForm],
   );
 
   const handleSubmit = useCallback(
@@ -184,8 +182,26 @@ const SignUp = () => {
                       autoComplete="off"
                       value={password}
                       onChange={handlePasswordChange}
-                      error={!!passwordError}
-                      helperText={passwordError}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <PasswordStrengthIndicator
+                      password={password}
+                      minLength={7}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      name="confirmPassword"
+                      label="Confirm Password"
+                      type="password"
+                      id="confirmPassword"
+                      value={confirmPassword}
+                      onChange={handleConfirmPasswordChange}
+                      error={password !== confirmPassword}
+                      helperText={password !== confirmPassword ? 'Passwords do not match' : ''}
                     />
                   </Grid>
                 </Grid>
@@ -214,4 +230,5 @@ const SignUp = () => {
     </>
   );
 };
+
 export default SignUp;
